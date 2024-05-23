@@ -3,20 +3,18 @@ import React, { useState } from 'react';
 function Home() {
   const [activeComponent, setActiveComponent] = useState(null);
   const [url, setUrl] = useState('');
+  const [sourceJson, setSourceJson] = useState([]);
 
   const renderActiveComponent = () => {
     switch (activeComponent) {
       case 'RestEndpoint':
         return (
-          <div className="mt-3">
-            <label className="form-label">Enter URL:</label>
-            <input
-              type="text"
-              className="form-control"
-              value={url}
-              onChange={(e) => setUrl(e.target.value)}
-            />
-          </div>
+            <RestEndpoint 
+            url={url} 
+            setUrl={setUrl} 
+            sourceJson={sourceJson} 
+            setSourceJson={setSourceJson} 
+          />
         );
       case 'SchemaBuilder':
         return <div>Schema Builder Component</div>;
@@ -28,6 +26,30 @@ function Home() {
         return <div>Select an option from the left</div>;
     }
   };
+
+
+function RestEndpoint({ url, setUrl, sourceJson, setSourceJson }) {
+    return (
+      <div className="mt-3">
+        <label className="form-label">Enter URL:</label>
+        <input
+          type="text"
+          className="form-control"
+          value={url}
+          onChange={(e) => setUrl(e.target.value)}
+        />
+        <div className="mt-3">
+          <label className="form-label">Source JSON:</label>
+          <textarea
+            className="form-control"
+            value={JSON.stringify(sourceJson, null, 2)}
+            onChange={(e) => setSourceJson(JSON.parse(e.target.value))}
+            rows="10"
+          />
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="container-fluid" >
