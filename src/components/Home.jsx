@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Routes, Route, useNavigate } from "react-router-dom";
 import RestEndpoint from "./RestEndPoint";
 import SchemaBuilder from "./SchemaBuilder";
+import JsonMapper from "./JsonMapper";
 
 
 function Home() {
@@ -54,7 +55,7 @@ function Home() {
           <Routes>
             <Route path="/rest-endpoint" element={<RestEndpoint />} />
             <Route path="/schema-builder" element={<SchemaBuilder />} />
-            <Route path="/Json-mapper" element={<RestEndpoint />} />
+            <Route path="/Json-mapper" element={<JsonMapper />} />
           </Routes>
         </div>
       </div>

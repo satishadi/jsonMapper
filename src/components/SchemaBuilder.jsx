@@ -4,7 +4,7 @@ import "jsoneditor-react/es/editor.min.css";
 import JsonContext from "./JsonContext";
 
 const SchemaBuilder = () => {
-  const { sourceJson, setTargetJson ,targetJson} = useContext(JsonContext);
+  const { sourceJson, setTargetJson} = useContext(JsonContext);
   const [editorValue, setEditorValue] = useState({});
 
   
@@ -13,8 +13,10 @@ const SchemaBuilder = () => {
   };
 
   const handleTargetButtonClick = () => {
+  
     setTargetJson(editorValue);
-   console.log(targetJson);
+    alert("Data saved in target");
+ 
   };
 
   return (
