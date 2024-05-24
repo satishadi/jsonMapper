@@ -2,11 +2,12 @@ import React, { useContext, useState } from "react";
 import { JsonEditor as Editor } from "jsoneditor-react";
 import "jsoneditor-react/es/editor.min.css";
 import JsonContext from "./JsonContext";
+import { useNavigate } from "react-router-dom";
 
 const SchemaBuilder = () => {
   const { sourceJson, setTargetJson} = useContext(JsonContext);
   const [editorValue, setEditorValue] = useState({});
-
+const navigate = useNavigate();
   
   const handleEditorChange = (newValue) => {
     setEditorValue(newValue);
@@ -16,12 +17,12 @@ const SchemaBuilder = () => {
   
     setTargetJson(editorValue);
     alert("Data saved in target");
- 
+    navigate('/json-mapper')
   };
 
   return (
     <div className="mt-3">
-      <h3>JSON Editor:</h3>
+      <h3 className="text-warning">Schema Builder:</h3>
       {sourceJson.length > 0 && (
         <Editor
           value={sourceJson[0]}

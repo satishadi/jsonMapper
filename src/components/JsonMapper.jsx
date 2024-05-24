@@ -1,3 +1,4 @@
+// components/JsonMapper.js
 import React, { useState, useContext, useEffect } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import JsonContext from './JsonContext';
@@ -52,7 +53,7 @@ const JsonMapper = () => {
 
   const renderObject = (obj, isSource = false) => {
     return (
-      <ul>
+      <ul className="list-group">
         {Object.entries(obj).map(([key, value]) => (
           <li
             key={key}
@@ -62,17 +63,17 @@ const JsonMapper = () => {
             onDrop={isSource ? null : (e) => handleDrop(e, key)}
             onDragOver={isSource ? null : handleDragOver}
           >
-            <input type="text" readOnly value={key} />: {JSON.stringify(value)}
+            <span className="fw-bold">{key}:</span> {JSON.stringify(value)}
           </li>
         ))}
       </ul>
     );
   };
-  
+
   const saveUpdatedJson = () => {
     // Convert updatedSourceJson to JSON format
     const jsonData = JSON.parse(updatedSourceJson);
-  
+
     // Send the updated JSON data to the server
     fetch('http://localhost:5000/api/items', {
       method: 'POST',
@@ -94,11 +95,11 @@ const JsonMapper = () => {
         console.error('Error saving data:', error);
       });
   };
-  
+
   return (
-    <div className="container-fluid mt-4">
+    <div className="container mt-4">
       <div className="row">
-        <div className="col-6">
+        <div className="col-md-6">
           <div className="card">
             <div className="card-header bg-primary text-white">
               <h3>Source JSON</h3>
@@ -106,13 +107,20 @@ const JsonMapper = () => {
             <div className="card-body">{renderObject(modifiedSourceObject, true)}</div>
           </div>
         </div>
-        <div className="col-6">
+        <div className="col-md-6">
           <div className="card">
             <div className="card-header bg-success text-white">
               <h3>Target JSON</h3>
             </div>
             <div className="card-body">{renderObject(targetJson)}</div>
           </div>
+        </div>
+      </div>
+      <div className="row mt-4">
+        <div className="col-12 text-center">
+          <button className="btn btn-primary" onClick={saveUpdatedJson}>
+            Save Updated JSON
+          </button>
         </div>
       </div>
       <div className="row mt-4">
@@ -125,13 +133,6 @@ const JsonMapper = () => {
               <pre>{updatedSourceJson}</pre> {/* Display updated JSON */}
             </div>
           </div>
-        </div>
-      </div>
-      <div className="row mt-4">
-        <div className="col-12 text-center">
-          <button className="btn btn-primary" onClick={saveUpdatedJson}>
-            Save Updated JSON
-          </button>
         </div>
       </div>
     </div>
